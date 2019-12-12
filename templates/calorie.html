@@ -1,0 +1,335 @@
+  {% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>calorie_chart</title>
+    <!-- Required meta tags -->
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+
+    <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- fatman font -->
+      <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+
+
+  </head>
+
+  <body>
+
+<style>
+    .nav-wrapper{
+        margin-bottom: 0px;
+        background-color: #000;
+    }
+
+
+</style>
+<!-- navbar -->
+<header>
+  <!-- <div class="container"> -->
+    <nav>
+        <div class="nav-wrapper ">
+            <a href="{% url 'home' %}" class="brand-logo ">
+                <div style="font-family: 'Lobster', cursive;">Care of Health</div>
+            </a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                      <li><a href="{% url 'home' %}">Diet Info</a></li>
+                      <li><a href="/bmr">Calculate BMR</a></li>
+                      <li><a href="/bmi">Calculate BMI</a></li>
+                      <li><a href="/tdee">Calculate TDEE</a></li>
+                      <li class="nav-item active"><a href="/calorie_chart">Calorie Chart</a></li>
+                      <li><a href="/diet_chart">Create Own Diet Chart</a></li>
+                        {% if not user.is_authenticated %}
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/signup">Registration</a></li>
+                            {%else%}
+                        <li><a  href="{% url 'logout' %}"> Log Out</a></li>
+                        {%endif%}
+                  </ul>
+        </div>
+    </nav>
+    <!-- </div -->
+</header>
+
+<!-- main content -->
+
+<!--  protein -->
+<div class="container">
+<div class="card text-center">
+  <div class="card-body text-center">
+  <h5> প্রোটিন জাতীয় খাবার   </h5>
+  </div>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"> নাম </th>
+      <th scope="col">ফ্যাট  </th>
+      <th scope="col">কার্ব</th>
+      <th scope="col">প্রোটিন </th>
+      <th scope="col">ফাইবার </th>
+      <th scope="col">নেট কার্ব </th>
+      <th scope="col">ক্যালরি / ১০০ গ্রাম</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for pro in all_protein_list %}
+    <tr>
+      <td>{{pro.Name}}</td>
+      <td>{{pro.Fat}}</td>
+      <td>{{pro.Carb}}</td>
+      <td>{{pro.Protein}}</td>
+      <td>{{pro.Fibre}}</td>
+      <td>{{pro.NetCarb}}</td>
+      <td>{{pro.Calorie}}</td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+</div>
+<br/>
+<!-- veg -->
+<div class="container">
+<div class="card">
+  <div class="card-body text-center">
+  <h5>শাক   সবজি  </h5>
+  </div>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"> নাম </th>
+      <th scope="col">ফ্যাট  </th>
+      <th scope="col">কার্ব</th>
+      <th scope="col">প্রোটিন </th>
+      <th scope="col">ফাইবার </th>
+      <th scope="col">নেট কার্ব </th>
+      <th scope="col">ক্যালরি / ১০০ গ্রাম</th>
+    </tr>
+  </thead>
+  <tbody>
+
+{% for veg in all_veg_list %}
+    <tr>
+      <td>{{veg.Name}}</td>
+      <td>{{veg.Fat}}</td>
+      <td>{{veg.Carb}}</td>
+      <td>{{veg.Protein}}</td>
+      <td>{{veg.Fibre}}</td>
+      <td>{{veg.NetCarb}}</td>
+      <td>{{veg.Calorie}}</td>
+    </tr>
+{% endfor %}
+
+  </tbody>
+</table>
+
+</div>
+<br/>
+
+
+<!-- Fruits -->
+<div class="container">
+<div class="card">
+  <div class="card-body text-center">
+  <h5> ফল জাতীয় খাবার  </h5>
+  </div>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"> নাম </th>
+      <th scope="col">ফ্যাট  </th>
+      <th scope="col">কার্ব</th>
+      <th scope="col">প্রোটিন </th>
+      <th scope="col">ফাইবার </th>
+      <th scope="col">নেট কার্ব </th>
+      <th scope="col">ক্যালরি / ১০০ গ্রাম</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for fruit in all_fruit_list %}
+    <tr>
+      <td>{{fruit.Name}}</td>
+      <td>{{fruit.Fat}}</td>
+      <td>{{fruit.Carb}}</td>
+      <td>{{fruit.Protein}}</td>
+      <td>{{fruit.Fibre}}</td>
+      <td>{{fruit.NetCarb}}</td>
+      <td>{{fruit.Calorie}}</td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+</div>
+<br/>
+
+<!--  carbs -->
+<div class="container">
+<div class="card">
+  <div class="card-body text-center">
+  <h5> শর্করা জাতীয় খাবার  </h5>
+  </div>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"> নাম </th>
+      <th scope="col">ফ্যাট  </th>
+      <th scope="col">কার্ব</th>
+      <th scope="col">প্রোটিন </th>
+      <th scope="col">ফাইবার </th>
+      <th scope="col">নেট কার্ব </th>
+      <th scope="col">ক্যালরি / ১০০ গ্রাম</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    {% for carb in all_carb_list %}
+    <tr>
+      <td>{{carb.Name}}</td>
+      <td>{{carb.Fat}}</td>
+      <td>{{carb.Carb}}</td>
+      <td>{{carb.Protein}}</td>
+      <td>{{carb.Fibre}}</td>
+      <td>{{carb.NetCarb}}</td>
+      <td>{{carb.Calorie}}</td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+</div>
+<br/>
+
+
+
+<!--  Fat -->
+<div class="container">
+<div class="card">
+  <div class="card-body text-center">
+  <h5> ফ্যাট  জাতীয় খাবার   </h5>
+  </div>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"> নাম </th>
+      <th scope="col">ফ্যাট  </th>
+      <th scope="col">কার্ব</th>
+      <th scope="col">প্রোটিন </th>
+      <th scope="col">ফাইবার </th>
+      <th scope="col">নেট কার্ব </th>
+      <th scope="col">ক্যালরি / ১০০ গ্রাম</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    {% for fat in all_fat_list %}
+    <tr>
+      <td>{{fat.Name}}</td>
+      <td>{{fat.Fat}}</td>
+      <td>{{fat.Carb}}</td>
+      <td>{{fat.Protein}}</td>
+      <td>{{fat.Fibre}}</td>
+      <td>{{fat.NetCarb}}</td>
+      <td>{{fat.Calorie}}</td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+</div>
+<br/>
+
+<!--  others -->
+<div class="container">
+<div class="card">
+  <div class="card-body text-center">
+  <h5>  বাংলাদেশে বহুল প্রচলিত অন্যান্য খাবার   </h5>
+  </div>
+</div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col"> নাম </th>
+      <th scope="col"> পরিমাণ  </th>
+      <th scope="col">ক্যালরি </th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    {% for others in all_others_list %}
+    <tr>
+      <td>{{others.Name}}</td>
+      <td>{{others.Qty}}</td>
+      <td>{{others.Calorie}}</td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+</div>
+<br/>
+
+<!-- end of main content -->
+
+
+
+<footer class="page-footer">
+        <style>
+            .page-footer{
+             margin-bottom: 0px;
+             background-color: black;
+            }
+        </style>
+
+    <div class="footer-copyright">
+        <div class="container center" >
+            © 2019 All right reserved
+        </div>
+    </div>
+</footer>
+
+
+
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+
+
+  </body>
+</html>

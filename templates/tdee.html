@@ -1,0 +1,215 @@
+  {% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>BMR</title>
+    <!-- Required meta tags -->
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <!-- <link rel="stylesheet" href="style.css"> -->
+
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+
+    <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <!-- fatman font -->
+      <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+
+<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"> -->
+
+
+    
+<!--     <style type="text/css">
+      #loading, #results{
+        display: none
+      }
+    </style> -->
+
+  </head>
+
+  <body>
+
+<style>
+    .nav-wrapper{
+        margin-bottom: 0px;
+        background-color: #000;
+    }
+
+
+</style>
+<!-- navbar -->
+<header>
+  <!-- <div class="container"> -->
+    <nav>
+        <div class="nav-wrapper">
+            <a href="{% url 'home' %}" class="brand-logo ">
+                <div style="font-family: 'Lobster', cursive;">Care of Health</div>
+            </a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                      <li  ><a href="{% url 'home' %}">Diet Info</a></li>
+                      <li><a href="/bmr">Calculate BMR</a></li>
+                      <li><a href="/bmi">Calculate BMI</a></li>
+                      <li class="nav-item active"><a href="/tdee">Calculate TDEE</a></li>
+                      <li><a href="/calorie_chart">Calorie Chart</a></li>
+                      <li><a href="/diet_chart">Create Own Diet Chart</a></li>
+                        {% if not user.is_authenticated %}
+                        <li><a href="/login">login</a></li>
+                        <li><a href="/signup">Registration</a></li>
+                            {%else%}
+                        <li><a  href="{% url 'logout' %}"> Log Out</a></li>
+                        {%endif%}
+                  </ul>
+        </div>
+    </nav>
+    <!-- </div -->
+</header>
+
+
+<main>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-4 mx-auto mr-5">
+            <br><br><br><br><br><br><br>
+            <br><br><br><br><br><br><br>
+          <div class="ml-5">
+                <a class="btn btn-defult " href="{% url 'bmr' %}">BMR Check</a>
+                </div>
+        </div>
+
+      <div class="col-md-8 mx-auto">
+        <div class="card card-body text-center mt-5">
+            <h1 class="heading display-5 pb-3">Your TDEE </h1>
+
+            <form  id="tdee-form">
+              
+              <!-- bmr -->
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="number" class="form-control" id="bmr" placeholder="আপনার  BMR ">
+                </div>
+              </div>
+
+                <!-- gender -->
+                <div class="form-group">
+                  <label for="exampleSelect1" class="bmd-label-floating">আপনার প্রতিদিনের সক্রিয়তা কেমন ?</label>
+                  
+                  <select class="form-control" id="activity">
+
+                    <option value="one">অলস, ডেস্ক জব করি </option>
+                    <option value="two">সপ্তাহে ১-৩ দিন খেলাধুলা বা ব্যায়াম করি</option>
+                    <option value="three">সপ্তাহে ৩ - ৫  দিন খেলাধুলা বা ব্যায়াম করি</option>
+                    <option value="four">সপ্তাহে ৭  দিনই  খেলাধুলা বা ব্যায়াম করি</option>
+                    <option value="five"> রিক্সা চালকের মত বা তার থেকেও বেশি কায়িক পরিশ্রম করি </option>
+
+                  </select>
+                </div>
+                    
+              
+
+              <div class="form-group">
+                <input type="submit" value="Calculate" class="btn  btn-block btn-danger">
+              </div>
+
+
+            </form>
+
+            <!-- loader here -->
+            <!-- <div id="loading">
+              <img src="img/img-loading.gif" alt="Responsive image">
+            </div> -->
+            <!-- Results --> 
+            <div class="container">
+                  <div class="row">
+                      <input type="text" class="form-control" id="res" placeholder="আপনার TDEE" disabled>
+                  </div>
+              </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</main>
+
+
+<!-- footer -->
+
+<!-- <div class="container"> -->
+
+<footer class="page-footer">
+        <style>
+            .page-footer{
+             margin-bottom: 0px;
+             background-color: black;
+            }
+        </style>
+
+    <div class="footer-copyright">
+        <div class="container center" >
+            © 2019 All right reserved
+        </div>
+    </div>
+</footer>
+<!--<footer class="page-footer">-->
+    <!--<div class="container">-->
+        <!--<div class="row">-->
+            <!--<div class="col l6 s12">-->
+                <!--<h5 class="white-text">For More Queries</h5>-->
+                <!--<p class="grey-text text-lighten-4">-->
+                 <!---->
+                    <!--<span class="row">-->
+                              <!--<i class="tiny material-icons">near_me</i>  Sabit Mahmud Deepto-->
+                    <!--</span>-->
+                    <!--<span class="row">-->
+                                <!--<i class="tiny material-icons">email</i>    deepto69@gmail.com-->
+                   <!--</span>-->
+                    <!--<span class="row">-->
+                                 <!--<i class="tiny material-icons">phone</i>    01677 421 114-->
+                   <!--</span>-->
+                  <!---->
+                <!--</p>-->
+            <!--</div>-->
+            <!--<div class="col l4 offset-l2 s12">-->
+                <!--<h5 class="white-text">Join Our Fb Group</h5>-->
+                <!--<ul>-->
+                    <!--<li><a class="grey-text text-lighten-3" href="#!"> FatMan</a></li>-->
+
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="footer-copyright">-->
+        <!--<div class="container">-->
+            <!--© 2018 Sabit Mahmud Deepto-->
+            <!--<a class="grey-text text-lighten-4 right" href="#!">More Health & Nutrition Tips</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</footer>-->
+
+
+
+
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+
+    <script src="{% static 'js/tdee.js' %}"></script>
+
+  </body>
+</html>
